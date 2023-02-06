@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+ 
+#spec {
+    font-size: 30px;
+}
+
+#nav { 
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: fixed;
+    width: 100%;
+    top: 5px;
+    left: 0;
+    border-top: 2px solid blue;
+    border-bottom: 1px solid lightgrey;
+}
+
+#nav a {
+    /* background-color: royalblue; */
+    text-decoration: none;
+    color: black;
+    padding: 0px 20px;
+}
+
+#nav a:hover {
+    color: blue;
+}
+
+#current {
+    color: blue !important;
+}
+
+#main {
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 811px) {
+    #main {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+
+#left {
+    /* background-color: red; */
+    margin-top: 80px;
+    margin-left: 30px;
+    padding-right: 20px;
+    float: left;
+    flex: 1;
+}
+
+#left div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#left div h2 {
+    margin-top: 20px;
+    margin-bottom: 0;
+}
+
+#left div p,a {
+    margin-top: 3px;
+    margin-bottom: 0;
+}
+
+#left div img {
+    border-radius: 50%;
+}
+
+#right {
+    /* background-color: blue; */
+    padding-right: 80px;
+    margin: 50px 20px;
+    flex: 3;
+}
+
+#points {
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+#level progress {
+    width: 90%;
+}
+
+#time {
+    float: right;
+}
+
+#edtable {
+    width: 100%;
+    /* background-color: red; */
+}
+
+#creds {
+    padding-top: 30px;
+    color: grey;
+}
+
+#creds a {
+    text-decoration: none;
+    color: blue;
+}
+
+#interests {
+    list-style-type: "- ";
+}
+
+#interests li {
+    padding-bottom: 10px;
+}
