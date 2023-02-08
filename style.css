@@ -10,26 +10,42 @@ body {
     /* background-color: red; */
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    position: fixed;
+    justify-content: space-around;
     width: 100%;
-    top: 5px;
+    position: fixed;
+    top: 0;
     left: 0;
-    border-top: 2px solid blue;
+    border-top: 3px solid blue;
     border-bottom: 1px solid lightgrey;
+    background-color: white;
 }
 
 #nav a {
     /* background-color: royalblue; */
     text-decoration: none;
     color: black;
-    padding: 0px 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 #nav a:hover {
     color: blue;
+}
+
+#footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 1px solid lightgrey;
+    color: lightgrey;
+    font-size: 14px;
+    background-color: white;
 }
 
 #current {
@@ -41,11 +57,22 @@ body {
     justify-content: center;
 }
 
-@media only screen and (max-width: 811px) {
+@media only screen and (max-width: 1086px) {
     #main {
         display: flex;
         justify-content: center;
         flex-direction: column;
+    }
+
+    #nav a {
+        text-decoration: none;
+        color: black;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    #footer {
+        font-size: 1vw;
     }
 }
 
@@ -81,7 +108,6 @@ body {
 
 #right {
     /* background-color: blue; */
-    padding-right: 80px;
     margin: 50px 20px;
     flex: 3;
 }
@@ -91,8 +117,12 @@ body {
     padding-left: 10px;
 }
 
+#points td {
+    padding-right: 10px;
+}
+
 #level progress {
-    width: 90%;
+    width: 80%;
 }
 
 #time {
@@ -107,11 +137,6 @@ body {
 #creds {
     padding-top: 30px;
     color: grey;
-}
-
-#creds a {
-    text-decoration: none;
-    color: blue;
 }
 
 #interests {
