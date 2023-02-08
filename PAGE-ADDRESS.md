@@ -1,7 +1,7 @@
 Put the address to your website here. Use this markdown format:
 
 ```bash
-[display-name](link)
+[GitHub Website](https://pakwan8.github.io)/
 ```
 
 example:
