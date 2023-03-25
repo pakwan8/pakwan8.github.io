@@ -1,65 +1,121 @@
 <!DOCTYPE html>
-<html lang="en-US">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="style.css">
-        <title>About me</title>
-    </head>
-    <body>
-        <div id="nav">
-            <a href="index.html" id="current">About</a>
-            <a href="skills.html">Skills</a>
-            <a href="education.html">Education</a>
-            <a href="experience.html">Experience</a>
-            <a href="interests.html">Interests</a>
-        </div>
-        <div id="main">
-            <div id="left">
-                <div>
-                    <img src="squared.jpg" width="150" height="150" alt="Something funny goes here">
-                    <h2>Thierry Laforge</h2>
-                    <p>Student at University of Calgary</p>
-                    <a href="mailto:21laforgth@gmail.com">21laforgth@gmail.com</a>
-                </div>
-            </div>
-            <div id="right">
-                <div>
-                    <p id="spec">About</p><br>
-                    <p>
-                        I am a student currently attending the University of Calgary, pursuing a Bachelor of Science in software engineering 
-                        with a minor in aerospace engineering. I love programming and Python is by far my favourite and most used language when
-                        working on personal projects. I also have an interest in cybersecurity and some experience with penetration testing and
-                        privilege escalation on Linux based machines.
-                    </p><br>
-                    <p>A few points about me:</p>
-                    <table id="points">
-                        <tr>
-                            <td>
-                                <form id="form0">
-                                    <input type="checkbox" id="box00">
-                                    <label for="box00">Not always bright</label><br>
-            
-                                    <input type="checkbox" id="box01">
-                                    <label for="box01">Writes messy code</label><br>
-                                </form>
-                            </td>
-                            <td>
-                                <form id="form1">
-                                    <input type="checkbox" id="box02">
-                                    <label for="box02">Always hungry</label><br>
-            
-                                    <input type="checkbox" id="box03">
-                                    <label for="box03">Broke</label><br>
-                                </form>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div id="footer">
-            © Thierry Laforge 2023
-        </div>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapid Algebra</title>
+    <link rel="stylesheet" href="/resources/styles.css">
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.js" integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/all.min.js"></script>
+    <script type="text/javascript">
+        function randint(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        }
+
+        function build() {
+            let vars = ["a", "b", "c", "d", "f", "g", "h", "j", "k", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+            let varChoice = vars[randint(0, vars.length)]
+            let exp = [varChoice, randint(1, 7)]
+
+            document.getElementById("input-label").innerHTML = `$${varChoice} =$`
+
+            let xPos = randint(0, 2);
+            if (xPos === 1) {
+                exp[0] += "^2";
+                exp[1] = Math.pow(randint(1, 7), 2);
+            }
+
+            if (randint(0, 2) === 0) {
+                if (exp[0] === `${varChoice}^2`) {
+                    let temp = randint(2, 4);
+                    exp[0] = `${exp[0]}/${temp}`;
+                    exp[1] *= temp;
+                } else {
+                    if (randint(0, 2) === 0) {
+                        exp[0] = `${exp[0]}/${randint(1, 13)}`;
+                    } else {
+                        exp[0] = `${randint(2, 13) * exp[1]}/${exp[0]}`
+                    }
+                }
+            }
+
+            let mod = "";
+            for(let i = 0; i < 2; i++) {
+                let temp = randint(1, 13);
+                if (randint(0, 2) === 0) {
+                    mod += `+${temp}`;
+                } else {
+                    mod += `-${temp}`;
+                }
+            }
+
+            if (nerdamer(exp[0] + mod).toString() === varChoice) {
+                document.getElementById("nice").hidden = false;
+            } else {
+                document.getElementById("nice").hidden = true;
+            }
+
+            let ansRaw = window.nerdamer.solve(`${nerdamer(exp[0] + mod).toString()}=${nerdamer(exp[1] + mod).toString()}`, varChoice).toString();
+            let ans = ansRaw.substring(1, ansRaw.length - 1);
+
+            if (ans.includes(",")) {
+                ans = ans.split(",")[0];
+            }
+
+            if (randint(0, 2) === 0) {
+                return [`$$${nerdamer(exp[0] + mod).toTeX()}=${nerdamer(exp[1] + mod).toTeX()}$$`, ans];
+            } else {
+                return [`$$${nerdamer(exp[1] + mod).toTeX()}=${nerdamer(exp[0] + mod).toTeX()}$$`, ans];
+            }
+        }
+
+        $(document).ready(() => {
+            let eq = build();
+            document.getElementById("equation").innerHTML = eq[0];
+            MathJax.typeset();
+
+            $("#evaluate").click(() => {
+                document.getElementById("nice").hidden = false;
+                if (document.getElementById("user-input").value.trim() === eq[1]) {
+                    document.getElementById("nice").width = 150;
+                    document.getElementById("nice").src = "/resources/check.png";
+
+                } else {
+                    document.getElementById("nice").width = 100;
+                    document.getElementById("nice").src = "/resources/x.png";
+                }
+            });
+
+            $("#next").click(() => {
+                eq = build();
+                document.getElementById("user-input").value = "";
+                document.getElementById("equation").innerHTML = eq[0];
+                MathJax.typeset();
+            })
+        });
+    </script>
+</head>
+<body>
+    <div id="main-container">
+<!--        <p id="score">Score = 0</p>-->
+        <p id="equation">loading...</p>
+        <label for="user-input" id="input-label"></label>
+        <input id="user-input"><br><br>
+        <button class="button" id="evaluate">Try</button>
+        <button class="button" id="next">Next</button>
+    </div>
+    <div id="pic">
+        <img id="nice" src="/resources/nice.jpg" alt="Image couldn't load :(" width="150", height="auto" hidden>
+    </div>
+</body>
 </html>
